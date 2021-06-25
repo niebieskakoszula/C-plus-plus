@@ -8,13 +8,6 @@ int n;
  
 int times[max_s], memo[max_s];
  
-/*
-1 2 3 4 5 6
-6 + solve(5) // 1 2 3 4 5
-5 6 + solve(4) // 1 2 3 4
-4 5 6 + solve(3) // 1 2 3
-*/
-//group time + solve(reszty)
 int solve(int s)
 {
     if (s == -1){
@@ -24,7 +17,7 @@ int solve(int s)
         return memo[s];
     }
     int group_time=0;
-    memo[s] = INT_MAX; // numeric_limits<int>::max();
+    memo[s] = INT_MAX; 
     for(int i = s; i >= max(s - n + 1, 0); i--) {
         group_time = max(group_time, times[i]);
         memo[s]=min(group_time + solve(i-1), memo[s]);
