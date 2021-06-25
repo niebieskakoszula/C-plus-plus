@@ -14,8 +14,6 @@
         while(!to_visit.empty()) {
             int first_vertex = to_visit.front();
             to_visit.pop();
-            //for(int i = 0; i < edges[current_vertex].size(); ++i) {
-            //    int next_vertex = edges[current_vertex][i];
             for (int next_vertex: edges[first_vertex]) {
                 if (distance[next_vertex] == 0) {
                     distance[next_vertex] = distance[first_vertex] + 1;
