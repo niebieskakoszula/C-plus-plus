@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-    int t, n;
-    cin>>t;
-    while(t--){
-        cin>>n;
-        for(int i=0; i<n; i++){
-            cout<<((i+1)%n)+1<<" ";
+    int tests, length ;
+    cin>>tests;
+    while(tests--){
+        cin>>length ;
+        for(int i = 0; i < length ; i++){
+            cout<<((i + 1) % length  ) + 1 <<" ";
         }
         cout<<endl;
     }
