@@ -1,38 +1,39 @@
 //https://pl.spoj.com/problems/NWW/
 
-    #include <iostream>
-     
-    using namespace std;
-     
-    unsigned long long nwd(unsigned long long a, unsigned long long b){
-        unsigned long long c;
-        while(b!=0){
-            c=a%b;
-            a=b;
-            b=c;
+#include <iostream>
+
+using namespace std;
+
+unsigned long long Greatest_Common_Factor(unsigned long long first, unsigned long long second){
+    unsigned long long temp;
+    while(second != 0){
+        temp = first % second;
+        first = second;
+        second = temp;
+    }
+    return first;
+}
+
+unsigned long long Smallest_Common_Multiple(unsigned long long first, unsigned long long second){
+    return (first / Greatest_Common_Factor(first, second)) * second;
+}
+
+int main()
+{
+    int tests, amount;
+    cin >> tests;
+    while(tests--){
+        cin >> amount;
+        unsigned long long numbers[amount];
+        for(int i = 0; i < amount; i++)
+            cin >> numbers[i];
+
+        for(int j = 1; j < amount; j++){
+            numbers[j] = Smallest_Common_Multiple(numbers[j - 1], numbers[j]);
         }
-        return a;
+        cout << numbers[amount - 1] << endl;
     }
-     
-    unsigned long long nww(unsigned long long a, unsigned long long b){
-        return (a/nwd(a,b))*b;
-    }
-     
-    int main()
-    {
-        int t,n;
-        cin>>t;
-        while(t){
-            cin>>n;
-            unsigned long long tab[n];
-            for(int i=0; i<n; i++) cin>>tab[i];
-            for(int j=1; j<n; j++){
-                tab[j]=nww(tab[j-1],tab[j]);
-            }
-            cout<<tab[n-1]<<endl;
-            t--;
-        }
-     
-        return 0;
-    }
-     
+
+    return 0;
+}
+
