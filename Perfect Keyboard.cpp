@@ -3,31 +3,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 int neighbours[26][26];
 int neighbours_count[26];
 
 int main() {
-    int t;
-    string c;
-    cin >> t;
-    
-    for(int i = 0; i < t; ++i) { //test casy
-        bool is_valid = true;
-        string input;
+    int tests;
+    string input;
+    cin >> tests;
 
+    for(int i = 0; i < tests; ++i) {
+        cin >> input;
+
+        //Creating array of neighbouring characters
         memset(neighbours, 0, sizeof neighbours);
         memset(neighbours_count, 0, sizeof neighbours_count);
-        
-        cin >> input;
-        
-        //Tworzenie tablicy tablic SOMSIADÓW
         for(int j = 1; j < (int) input.length(); ++j) {
 			if (input[j - 1] == input[j]) continue;
             neighbours[input[j - 1]-'a'][input[j]-'a'] = 1;
             neighbours[input[j]-'a'][input[j - 1]-'a'] = 1;
         }
-        
-        //Sprawdzenie czy da się zrobić
+
+
+        //Checking if it's possible
+        bool is_valid = true;
         int end_count = 0, current_node = 0;
         for(int x = 0; x < 26 && is_valid; ++x) {
             for(int y = 0; y < 26; ++y) {
@@ -35,7 +34,7 @@ int main() {
                     neighbours_count[x]++;
                 }
             }
-            
+
             if(neighbours_count[x] >= 3) {
                 is_valid = false;
                 break;
@@ -49,7 +48,7 @@ int main() {
         for (int j = 0; j < 26; j++) {
 			if (neighbours_count[j] == 0) zero_count++;
 		}
-		
+
 		if (zero_count == 26) {
 			cout << "YES" << "\n";
 			for (char j = 'a'; j <= 'z'; j++) {
@@ -58,21 +57,19 @@ int main() {
 			cout << "\n";
 			continue;
 		}
-        
+
         if (end_count != 2 || !is_valid) {
             cout<<"NO"<<endl;
             continue;
         }
-        
-        //Jeżeli da się zrobić, to wyświetlanie wyniku
+
+        //If it's possible create keyboard
         string result = "";
         result += (char) ('a' + current_node);
 		memset(neighbours_count, 0, sizeof neighbours_count);
 		neighbours_count[current_node] = 1;
-		
-        while(true) { 
-			
-			//cerr << current_node << "\n";
+
+        while(true) {
             int next_node = -1;
             for (int j = 0; j < 26; j++) {
                 if (neighbours[current_node][j] == 1 && neighbours_count[j] != 1) {
@@ -82,9 +79,8 @@ int main() {
                     break;
                 }
             }
-            if (next_node == -1) {
-                break;
-            }
+            if (next_node == -1) break;
+
             current_node = next_node;
         }
 
